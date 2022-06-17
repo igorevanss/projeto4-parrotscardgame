@@ -5,9 +5,11 @@ body {
 }
 
 .container {
-  display: inline-block;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #EEF9BF;
 }
 
@@ -30,23 +32,48 @@ h1 {
   padding: 40px 80px;
 }
 
-.card {
+.flip-container {
   width: 117px;
   height: 146px;
-  background-color: #A7E9AF;
-  border: 1px solid #99CEA8;
-  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
+  perspective: 1000px;
 }
 
-.card img {
+.card {
+  width: 100%;
+	height: 100%;
+  transition: transform 0.8s;
+	transform-style: preserve-3d;
+  position: relative;
+  background: #A7E9AF;
+  border: 1px solid #99CEA8;
+  border-radius: 5px;
+}
+
+.front img,
+.back img {
   width: 100px;
 }
 
-.card img:last-of-type {
-  display: none;
+.back{
+	transform: rotateY(180deg);
+}
+
+.front,
+.back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+	width: 100%;
+	height: 100%;
+  backface-visibility: hidden;
+}
+
+.clicked .card{
+	transform: rotateY(-180deg);
 }
 
 @media screen and (max-width: 331px) {
