@@ -10,6 +10,11 @@ let cards = [
 ]
 let deck = []
 
+let firstCard
+let secondCard
+let moves = 0
+let corectCards = 0
+
 function askAmount() {
   amountCards = prompt('Com quantas cartas quer jogar?')
 
@@ -63,7 +68,44 @@ function dealCards() {
 }
 
 function flipCard(clicked) {
-  const flip = document.querySelector('.flip-container')
+  if (clicked.classList.contains('clicked') || secondCard !== undefined) {
+    return
+  }
 
+  moves++
   clicked.classList.add('clicked')
+
+  if (firstCard === undefined) {
+    firstCard = clicked
+  } else {
+    secondCard = clicked
+
+    if (firstCard.innerHTML === secondCard.innerHTML) {
+      corectCards += 2
+
+      checkEnd()
+      resetCards()
+    } else {
+      setTimeout(unflipCards, 1000)
+    }
+  }
+}
+
+function resetCards() {
+  firstCard = undefined
+  secondCard = undefined
+}
+
+function unflipCards() {
+  firstCard.classList.remove('clicked')
+  secondCard.classList.remove('clicked')
+  resetCards()
+}
+
+function checkEnd() {
+  if (corectCards === Number(amountCards)) {
+    setTimeout(function(){
+      alert(`Você ganhou em ${moves} jogadas.`)
+    }, 1000)
+  }
 }
