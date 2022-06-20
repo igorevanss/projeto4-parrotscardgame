@@ -104,8 +104,18 @@ function unflipCards() {
 
 function checkEnd() {
   if (corectCards === Number(amountCards)) {
-    setTimeout(function(){
+    setTimeout(function () {
       alert(`Você ganhou em ${moves} jogadas.`)
     }, 1000)
+
+    setTimeout(restart, 1000)
+  }
+}
+
+function restart() {
+  let playAgain = prompt('Você gostaria de reiniciar a partida?')
+
+  if (playAgain === 'sim') {
+    window.location.reload();
   }
 }
